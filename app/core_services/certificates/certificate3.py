@@ -1,96 +1,73 @@
-from PIL import Image,ImageDraw,ImageFont
+from PIL import Image, ImageDraw, ImageFont
 import os
+
+# Ensure the output directory exists
 if not os.path.exists('certificates/certificatesave'):
     os.makedirs('certificates/certificatesave')
-#FONT_FILE = ImageFont.truetype("arial.ttf", 50)
-#FONT_FILE_o = ImageFont.truetype("arial.ttf", 30)
+
 FONT_COLOR = "#000000"
-t1 = Image.open('certificates/cert/cert3.png')
-WIDTH, HEIGHT = t1.size
-def make_certificates3(name,event,date,org,desig,n1,url1,log1):
-    image_source = Image.open('certificates/cert/cert3.png')
-    draw = ImageDraw.Draw(image_source)
-    name_width, name_height = draw.textsize(name)
-    draw.text((813,720), name, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",75))
-    event_width, event_height = draw.textsize(event)
-    draw.text((696,913), event, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",30))
-    date_width, date_height = draw.textsize(date)
-    draw.text((1560,912), date, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",30))
-    org_width, org_height = draw.textsize(org)
-    draw.text((1153,910), org, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",30))
-    name_width, name_height = draw.textsize(name)
-    draw.text((1132,862), name, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",30))
+FONT_PATH = "arial.ttf"  # Replace with the path to your font file
 
-    desig_width, desig_height = draw.textsize(desig)
-    draw.text((432,1220), desig, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",30))
-    #design_width, design_height = draw.textsize(design)
-    #draw.text((1404,1204), design, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",30))
-    n1_width, n1_height = draw.textsize(n1)
-    draw.text((433,1133), n1, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",30))
-    #n2_width, n2_height = draw.textsize(n2)
-    #draw.text((1391,1123), n2, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",30))
-    #image_source.save("./out/" + name +".png")
-    #print('Saving Certificate of:', name)
+# Load fonts once
+try:
+    name_font = ImageFont.truetype(FONT_PATH, 75)
+    event_font = ImageFont.truetype(FONT_PATH, 30)
+    date_font = ImageFont.truetype(FONT_PATH, 30)
+    org_font = ImageFont.truetype(FONT_PATH, 30)
+    desig_font = ImageFont.truetype(FONT_PATH, 30)
+    n1_font = ImageFont.truetype(FONT_PATH, 30)
+except IOError:
+    print("Error: Font file not found. Ensure the font file path is correct.")
+    exit()
 
-    insert_image1 = Image.open(url1)
-    #insert_image2 = Image.open(url2)
 
-    width1, height1 = insert_image1.size
-    #width2, height2 = insert_image2.size
-    x = width1/height1
-    #y = width2/height2
-    if x <= 3 :
-        insert_image1 = insert_image1.resize((250,75))
-        image_source.paste(insert_image1, (400,1040))
-    else:
-        insert_image1 = insert_image1.resize((450,75))
-        image_source.paste(insert_image1, (400,1040))
-        
-    #if y <= 3 :
-        #insert_image2 = insert_image2.resize((250,75))
-        #image_source.paste(insert_image2, (1296,1040))
-    #else :
-        #insert_image2 = insert_image2.resize((450,75))
-        #image_source.paste(insert_image2, (1276,1040))
+def make_certificates3(name, event, date, org, desig, n1, url1, log1):
+    try:
+        # Open the certificate template
+        image_source = Image.open('certificates/cert/cert3.png')
+        draw = ImageDraw.Draw(image_source)
 
-    logo1 = Image.open(log1)
-    #logo2 = Image.open(log2)
+        # Draw text on the certificate
+        draw.text((813, 720), name, fill=FONT_COLOR, font=name_font)
+        draw.text((696, 913), event, fill=FONT_COLOR, font=event_font)
+        draw.text((1560, 912), date, fill=FONT_COLOR, font=date_font)
+        draw.text((1153, 910), org, fill=FONT_COLOR, font=org_font)
+        draw.text((1132, 862), name, fill=FONT_COLOR, font=org_font)
+        draw.text((432, 1220), desig, fill=FONT_COLOR, font=desig_font)
+        draw.text((433, 1133), n1, fill=FONT_COLOR, font=n1_font)
 
-    width3, height3 = logo1.size
-    #width4, height4 = logo2.size
-    a = width3/height3
-    #b = width4/height4
-    if a <= 3:
-        logo1 = logo1.resize((100,100))
-        image_source.paste(logo1, (1400,1040))
-    else :
-        logo1 = logo1.resize((200,100))
-        image_source.paste(logo1, (1400,1040))
+        # Open and paste images
+        insert_image1 = Image.open(url1)
+        logo1 = Image.open(log1)
 
-    #if b <= 3 :
-        #logo2 = logo2.resize((100,100))
-        #image_source.paste(logo2, (1045,63))
-    #else :
-        #logo2 = logo2.resize((200,100))
-        #image_source.paste(logo2, (1045,63))
+        # Dynamic resizing and pasting
+        def resize_and_paste(image, size, position):
+            image.thumbnail(size, Image.ANTIALIAS)
+            image_source.paste(image, position, image if image.mode == 'RGBA' else None)
 
-    image_source.save('certificates/certificatesave/certificate.png', format='PNG')
+        resize_and_paste(insert_image1, (450, 75), (400, 1040))
+        resize_and_paste(logo1, (200, 100), (1400, 1040))
+
+        # Save the certificate with a unique name
+        output_path = f'certificates/certificatesave/{name.replace(" ", "_")}_certificate.png'
+        image_source.save(output_path, format='PNG')
+        print(f"Certificate saved for: {name}")
+
+    except IOError as e:
+        print(f"Error processing certificate for {name}: {e}")
+
 
 if __name__ == "__main__":
-    names = ["Soham Chakraborty", "Kaustav Giri", "Pritha Saha","Ujjaini Ray"]
+    names = ["Soham Chakraborty", "Kaustav Giri", "Pritha Saha", "Ujjaini Ray"]
     event = "Metathon"
     date = "28.12.2022"
-    #venue = "Taal Kutir Convention"
     org = "Presidency"
-
     desig = "Principal"
-    #design = "Student Head"
     n1 = "Mitra Basu"
-    #n2 = "P. K. Dan"
     url1 = "signs/sig1.png"
-    #url2 = "signs/sig2.png"
     log1 = "logos/logo1.png"
-    #log2 = "logos/logo2.png"
+
     for name in names:
-        make_certificates3(name,event,date,org,desig,n1,url1,log1)
+        make_certificates3(name, event, date, org, desig, n1, url1, log1)
+
     print(len(names), "certificates done.")
