@@ -9,7 +9,7 @@ FONT_COLOR = "#000000"
 FONT_PATH = "arial.ttf"  # Ensure the correct path to your font file
 
 # Load template image
-temp = Image.open('banners/ban/ban3.png')
+temp = Image.open('./app/core_services/banners/ban/ban3.png')
 WIDTH, HEIGHT = temp.size
 
 def make_banners3(org, event, venue, date, time):

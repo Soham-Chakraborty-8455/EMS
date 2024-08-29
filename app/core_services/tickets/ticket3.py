@@ -3,10 +3,10 @@ import os
 if not os.path.exists('tickets/ticketsave'):
     os.makedirs('tickets/ticketsave')
 FONT_COLOR = "#000000"
-temp = Image.open('tickets/tckts/tic3.png')
+temp = Image.open('./app/core_services/tickets/tckts/tic3.png')
 WIDTH, HEIGHT = temp.size
 def make_tickets3(name,event,date,org,venue,email,phone,time):
-    image_source = Image.open('tickets/tckts/tic3.png')
+    image_source = Image.open('./app/core_services/tickets/tckts/tic3.png')
     draw = ImageDraw.Draw(image_source)
     name_width, name_height = draw.textsize(name)
     draw.text((1598,220), name, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",20))

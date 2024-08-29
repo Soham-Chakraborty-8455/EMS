@@ -24,7 +24,7 @@ except IOError:
 def make_certificates2(name, event, date, venue, desig, n1, url1, log1):
     try:
         # Open certificate template
-        image_source = Image.open('certificates/cert/cert2.png')
+        image_source = Image.open('./app/core_services/certificates/cert/cert2.png')
         draw = ImageDraw.Draw(image_source)
 
         # Draw text on the image

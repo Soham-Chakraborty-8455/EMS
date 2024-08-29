@@ -9,7 +9,7 @@ FONT_COLOR = "#000000"
 FONT_PATH = "arial.ttf"
 
 # Load template image
-temp = Image.open('banners/ban/ban1.png')
+temp = Image.open('./app/core_services/banners/ban/ban1.png')
 WIDTH, HEIGHT = temp.size
 
 

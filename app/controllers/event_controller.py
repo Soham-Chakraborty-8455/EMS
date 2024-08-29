@@ -19,4 +19,4 @@ def event_data():
 
         return jsonify({'eventid': event.id})
 
-    return render_template('index.html')
+    # return render_template('../template/index.html')

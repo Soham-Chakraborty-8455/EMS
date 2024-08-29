@@ -22,7 +22,7 @@ except IOError:
 
 def make_certificates1(name, gender, event, desig, n1, url1, log1):
     try:
-        image_source = Image.open('certificates/cert/cert1.png')
+        image_source = Image.open('./app/core_services/certificates/cert/cert1.png')
         draw = ImageDraw.Draw(image_source)
 
         # Draw text on the image

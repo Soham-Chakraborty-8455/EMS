@@ -13,7 +13,6 @@ class EventDetails(db.Model):
     logo = db.Column(db.String)
     signature = db.Column(db.String, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
-    walletaddress = db.Column(db.String, nullable=False)
     ticketTemplate = db.Column(db.String, nullable=False)
     certificateTemplate= db.Column(db.String, nullable=False)
     bannerTemplate= db.Column(db.String, nullable=False)
