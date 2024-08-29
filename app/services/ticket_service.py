@@ -1,4 +1,4 @@
-from ..tickets import ticket1, ticket2, ticket3
+from ..core_services.tickets import ticket1, ticket2, ticket3
 
 def create_ticket(template, participant, event):
     if template == "1":

@@ -1,4 +1,4 @@
-from ..certificates import certificate1, certificate2, certificate3
+from ..core_services.certificates import certificate1, certificate2, certificate3
 
 def create_certificate(template, data, event):
     if template == "1":

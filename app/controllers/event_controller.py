@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, render_template
 from ..models.event import EventDetails
 from ..services.banner_service import create_banner
-from ..services.email_service import registration_mail
+from ..services.email_service import send_registration_email
 from .. import db
 
 event_bp = Blueprint('event_bp', __name__)
@@ -15,7 +15,7 @@ def event_data():
         db.session.commit()
 
         create_banner(data['bannerTemplate'], data['orgname'], data['eventname'], data['venue'], data['startdate'], data['starttime'])
-        registration_mail()
+        send_registration_email()
 
         return jsonify({'eventid': event.id})
 
