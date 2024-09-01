@@ -10,10 +10,9 @@ The Event Management System (EMS) is a web application designed to streamline th
 
 - **Event Creation**: Organizers can create events by entering details such as the event name, venue, date, time, organizer's name, speaker's name, and uploading volunteer names via a CSV file.
 - **Generate Banners**: Automatically create event banners with event details using Pillow for image processing.
-- **Volunteer ID Cards**: Generate and send ID cards to volunteers, delivered directly to the organizer's email.
 - **Send Certificates**: Send personalized certificates to participants after authentication using the organizer's email and phone number.
 - **Participant Registration**: Participants can register for events by providing their name, phone number, and email.
-- **Email Notifications**: Utilize Flask-Mail to send emails for confirmations, ID cards, and certificates.
+- **Email Notifications**: Utilize Flask-Mail to send emails for confirmations, and certificates.
 
 ## Technology Stack
 
