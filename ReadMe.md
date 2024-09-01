@@ -20,7 +20,6 @@ The Event Management System (EMS) is a web application designed to streamline th
 - **Database**: SQLite (development), PostgreSQL (production)
 - **Image Processing**: Pillow
 - **Email**: Flask-Mail
-- **Forms**: Flask-WTF
 - **Database ORM**: SQLAlchemy
 
 ## Usage
