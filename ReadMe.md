@@ -51,13 +51,6 @@ The Event Management System (EMS) is a web application designed to streamline th
     - Next to each event in the table, you'll find a "View Banner" button. Click it to automatically generate a visual banner for the event.
     - The banner will include all the event details and can be customized for printing or online sharing.
 
-### Volunteer ID Cards
-
-- **Click the "Generate ID Card" Button**
-    - For each event, there is an option to generate ID cards for volunteers.
-    - Click the "Generate ID Card" button, and the system will create personalized ID cards for each volunteer listed in the CSV file.
-    - The ID cards will be sent directly to the organizer's email address.
-
 ### Sending Certificates
 
 - **Click the "Send Certificate" Button**
