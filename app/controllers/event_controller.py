@@ -14,9 +14,16 @@ def event_data():
         db.session.add(event)
         db.session.commit()
 
-        create_banner(data['bannerTemplate'], data['orgname'], data['eventname'], data['venue'], data['startdate'], data['starttime'])
+        create_banner(
+            data['bannerTemplate'],
+            data['orgname'],
+            data['eventname'],
+            data['venue'],
+            data['startdate'],
+            data['starttime']
+        )
         send_registration_email()
 
         return jsonify({'eventid': event.id})
 
-    # return render_template('../template/index.html')
+    return render_template('event_details.html')

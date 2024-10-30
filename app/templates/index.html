@@ -1,0 +1,57 @@
+<!-- app/templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Management System - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .home-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .home-container h1 {
+            margin-bottom: 30px;
+            color: #333333;
+        }
+        .nav-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 25px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="home-container">
+        <h1>Welcome to the Event Management System</h1>
+        <a href="/eventdetails" class="nav-button">Create Event</a>
+        <a href="/participantdetails" class="nav-button">Register Participant</a>
+        <a href="/checkout" class="nav-button">Checkout & Certificates</a>
+    </div>
+
+    <script>
+        // Optional JavaScript can be added here if needed in the future
+    </script>
+</body>
+</html>

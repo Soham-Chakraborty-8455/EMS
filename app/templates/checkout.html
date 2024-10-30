@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff0f5;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #f44336;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .message {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Checkout and Certificate Generation</h2>
+        <form id="checkoutForm">
+            <label for="eventid">Event ID:</label>
+            <input type="number" id="eventid" name="eventid" required>
+
+            <label for="name">Participant Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="certificateTemplate">Certificate Template:</label>
+            <select id="certificateTemplate" name="certificateTemplate" required>
+                <option value="CertTemplate1">Certificate Template 1</option>
+                <option value="CertTemplate2">Certificate Template 2</option>
+                <!-- Add more templates as needed -->
+            </select>
+
+            <button type="submit">Checkout</button>
+        </form>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const data = {
+                eventid: parseInt(document.getElementById('eventid').value),
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                certificateTemplate: document.getElementById('certificateTemplate').value
+            };
+
+            fetch('/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'Certificate created') {
+                    document.getElementById('message').innerText = 'Checkout Successful! Certificate Generated.';
+                    document.getElementById('checkoutForm').reset();
+                } else {
+                    document.getElementById('message').innerText = 'Checkout Failed.';
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                document.getElementById('message').innerText = 'An error occurred.';
+            });
+        });
+    </script>
+</body>
+</html>

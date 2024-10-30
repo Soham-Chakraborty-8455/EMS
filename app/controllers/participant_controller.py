@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify, render_template
-
 from ..models.event import EventDetails
 from ..models.participant import Participants, Certificate
 from ..services.email_service import send_registration_email
@@ -32,7 +31,7 @@ def participants():
 
         return jsonify({'trigger': True})
 
-    # return render_template('index.html')
+    return render_template('participant_details.html')
 
 @participant_bp.route("/checkout", methods=["GET", "POST"])
 def checkin():
@@ -47,4 +46,6 @@ def checkin():
         event_details = EventDetails.query.filter_by(id=data['eventid']).first()
         create_certificate(event_details.certificateTemplate, data, event_details)
 
-    # return render_template('index.html')
+        return jsonify({'status': 'Certificate created'})
+
+    return render_template('checkout.html')

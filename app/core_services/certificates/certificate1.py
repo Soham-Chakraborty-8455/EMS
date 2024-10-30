@@ -20,7 +20,7 @@ except IOError:
     exit()
 
 
-def make_certificates1(name, gender, event, desig, n1, url1, log1):
+def make_certificates1(name, gender, event, desig, n1, signurl1, logourl1):
     try:
         image_source = Image.open('./app/core_services/certificates/cert/cert1.png')
         draw = ImageDraw.Draw(image_source)
@@ -34,11 +34,11 @@ def make_certificates1(name, gender, event, desig, n1, url1, log1):
         draw.text((488, 1099), n1, fill=FONT_COLOR, font=n1_font)
 
         # Open and resize logos and signatures
-        logo1 = Image.open(log1)
+        logo1 = Image.open(logourl1)
         logo1.thumbnail((200, 100), Image.ANTIALIAS)  # Resize with aspect ratio
         image_source.paste(logo1, (1340, 1030), logo1 if logo1.mode == 'RGBA' else None)
 
-        insert_image1 = Image.open(url1)
+        insert_image1 = Image.open(signurl1)
         insert_image1.thumbnail((450, 75), Image.ANTIALIAS)  # Resize with aspect ratio
         image_source.paste(insert_image1, (453, 994), insert_image1 if insert_image1.mode == 'RGBA' else None)
 

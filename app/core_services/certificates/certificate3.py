@@ -21,7 +21,7 @@ except IOError:
     exit()
 
 
-def make_certificates3(name, event, date, org, desig, n1, url1, log1):
+def make_certificates3(name, event, date, org, desig, n1, signurl1, logourl1):
     try:
         # Open the certificate template
         image_source = Image.open('./app/core_services/certificates/cert/cert3.png')
@@ -37,8 +37,8 @@ def make_certificates3(name, event, date, org, desig, n1, url1, log1):
         draw.text((433, 1133), n1, fill=FONT_COLOR, font=n1_font)
 
         # Open and paste images
-        insert_image1 = Image.open(url1)
-        logo1 = Image.open(log1)
+        insert_image1 = Image.open(signurl1)
+        logo1 = Image.open(logourl1)
 
         # Dynamic resizing and pasting
         def resize_and_paste(image, size, position):

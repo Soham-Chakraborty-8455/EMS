@@ -26,15 +26,15 @@ def make_tickets2(name,event,date,org,venue,email,phone,time):
     draw.text((472,531),time, fill=FONT_COLOR,font=ImageFont.truetype("arial.ttf",25))
     image_source.save('tickets/ticketsave/ticket.png', format='PNG')
 
-if __name__ == "__main__":
-    names = ["Soham Chakraborty", "Kaustav Giri", "Pritha Saha","Ujjaini Ray"]
-    event = "Metathon"
-    date = "28.12.2022"
-    venue = "Taal Kutir Convention"
-    org = "Student Developers Student Clubs, Kolkata"
-    phone = "9800910906"
-    email = "prithasaha19@gmail.com"
-    time = "09:30 a.m."
-    for name in names:
-        make_tickets2(name,event,date,org,venue,email,phone,time)
-    print(len(names), "Tickets done.")
+# if __name__ == "__main__":
+#     names = ["Soham Chakraborty", "Kaustav Giri", "Pritha Saha","Ujjaini Ray"]
+#     event = "Metathon"
+#     date = "28.12.2022"
+#     venue = "Taal Kutir Convention"
+#     org = "Student Developers Student Clubs, Kolkata"
+#     phone = "9800910906"
+#     email = "prithasaha19@gmail.com"
+#     time = "09:30 a.m."
+#     for name in names:
+#         make_tickets2(name,event,date,org,venue,email,phone,time)
+#     print(len(names), "Tickets done.")
