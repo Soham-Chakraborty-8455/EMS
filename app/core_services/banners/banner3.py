@@ -2,19 +2,19 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 # Create directory if it doesn't exist
-if not os.path.exists('./bannersave'):
-    os.makedirs('./bannersave')
+if not os.path.exists('../banners/bannersave'):
+    os.makedirs('../banners/bannersave')
 
 FONT_COLOR = "#000000"
 FONT_PATH = "arial.ttf"  # Ensure the correct path to your font file
 
 # Load template image
-temp = Image.open('./ban/ban3.png')
+temp = Image.open('../banners/ban/ban3.png')
 WIDTH, HEIGHT = temp.size
 
 def make_banners3(org, event, venue, date, time):
     # Open the source image
-    image_source = Image.open('./ban/ban3.png')
+    image_source = Image.open('../banners/ban/ban3.png')
     draw = ImageDraw.Draw(image_source)
 
     # Load fonts with error handling
@@ -36,7 +36,7 @@ def make_banners3(org, event, venue, date, time):
     draw.text((539, 2020), time, fill=FONT_COLOR, font=time_font)
 
     # Save the image
-    image_source.save('./bannersave/banner.png', format='PNG')
+    image_source.save('../banners/bannersave/banner.png', format='PNG')
 
 # if __name__ == "__main__":
 #     names = ["Soham Chakraborty", "Kaustav Giri", "Pritha Saha", "Ujjaini Ray"]

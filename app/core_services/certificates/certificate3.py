@@ -24,7 +24,7 @@ except IOError:
 def make_certificates3(name, event, date, org, desig, n1, signurl1, logourl1):
     try:
         # Open the certificate template
-        image_source = Image.open('./app/core_services/certificates/cert/cert3.png')
+        image_source = Image.open('../certificates/app/core_services/certificates/cert/cert3.png')
         draw = ImageDraw.Draw(image_source)
 
         # Draw text on the certificate
@@ -49,7 +49,7 @@ def make_certificates3(name, event, date, org, desig, n1, signurl1, logourl1):
         resize_and_paste(logo1, (200, 100), (1400, 1040))
 
         # Save the certificate with a unique name
-        output_path = f'./certificatesave/{name.replace(" ", "_")}_certificate.png'
+        output_path = f'../certificates/certificatesave/{name.replace(" ", "_")}_certificate.png'
         image_source.save(output_path, format='PNG')
         print(f"Certificate saved for: {name}")
 

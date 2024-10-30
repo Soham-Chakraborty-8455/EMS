@@ -2,8 +2,8 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 # Ensure the save directory exists
-if not os.path.exists('./ticketsave'):
-    os.makedirs('./ticketsave')
+if not os.path.exists('../tickets/ticketsave'):
+    os.makedirs('../tickets/ticketsave')
 
 FONT_COLOR = "#000000"
 FONT_PATH = "arial.ttf"  # Specify font path if necessary
@@ -11,7 +11,7 @@ FONT_PATH = "arial.ttf"  # Specify font path if necessary
 def make_tickets3(name, event, date, org, venue, email, phone, time):
     try:
         # Load the ticket template
-        image_source = Image.open('./tckts/tic3.png')
+        image_source = Image.open('../tickets/tckts/tic3.png')
         draw = ImageDraw.Draw(image_source)
 
         # Load fonts, or use default if unavailable
@@ -38,7 +38,7 @@ def make_tickets3(name, event, date, org, venue, email, phone, time):
         draw.text((585, 522), time, fill=FONT_COLOR, font=font20)
 
         # Save each ticket with a unique filename
-        ticket_filename = f'./ticketsave/ticket_{name.replace(" ", "_")}.png'
+        ticket_filename = f'../tickets/ticketsave/ticket_{name.replace(" ", "_")}.png'
         image_source.save(ticket_filename, format='PNG')
         print(f"Ticket created for {name}: {ticket_filename}")
 
