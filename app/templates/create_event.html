@@ -1,0 +1,160 @@
+<!-- app/templates/create_event.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Event - Event Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #17a2b8;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #138496;
+        }
+        .message {
+            margin-top: 20px;
+            text-align: center;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create New Event</h2>
+        <form id="createEventForm">
+            <label for="eventname">Event Name:</label>
+            <input type="text" id="eventname" name="eventname" required>
+
+            <label for="orgname">Organization Name:</label>
+            <input type="text" id="orgname" name="orgname" required>
+
+            <label for="orgweb">Organization Website:</label>
+            <input type="url" id="orgweb" name="orgweb">
+
+            <label for="venue">Venue:</label>
+            <input type="text" id="venue" name="venue" required>
+
+            <label for="startdate">Start Date:</label>
+            <input type="date" id="startdate" name="startdate" required>
+
+            <label for="enddate">End Date:</label>
+            <input type="date" id="enddate" name="enddate" required>
+
+            <label for="starttime">Start Time:</label>
+            <input type="time" id="starttime" name="starttime" required>
+
+            <label for="endtime">End Time:</label>
+            <input type="time" id="endtime" name="endtime" required>
+
+            <label for="logo">Logo URL:</label>
+            <input type="url" id="logo" name="logo">
+
+            <label for="signature">Signature URL:</label>
+            <input type="url" id="signature" name="signature" required>
+
+            <label for="cost">Cost (in USD):</label>
+            <input type="number" id="cost" name="cost" required>
+
+            <label for="ticketTemplate">Ticket Template:</label>
+            <select id="ticketTemplate" name="ticketTemplate" required>
+                <option value="Template1">Template 1</option>
+                <option value="Template2">Template 2</option>
+                <!-- Add more templates as needed -->
+            </select>
+
+            <label for="certificateTemplate">Certificate Template:</label>
+            <select id="certificateTemplate" name="certificateTemplate" required>
+                <option value="CertTemplate1">Certificate Template 1</option>
+                <option value="CertTemplate2">Certificate Template 2</option>
+                <!-- Add more templates as needed -->
+            </select>
+
+            <label for="bannerTemplate">Banner Template:</label>
+            <select id="bannerTemplate" name="bannerTemplate" required>
+                <option value="BannerTemplate1">Banner Template 1</option>
+                <option value="BannerTemplate2">Banner Template 2</option>
+                <!-- Add more templates as needed -->
+            </select>
+
+            <button type="submit">Create Event</button>
+        </form>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('createEventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const data = {
+                eventname: document.getElementById('eventname').value,
+                orgname: document.getElementById('orgname').value,
+                orgweb: document.getElementById('orgweb').value,
+                venue: document.getElementById('venue').value,
+                startdate: document.getElementById('startdate').value,
+                enddate: document.getElementById('enddate').value,
+                starttime: document.getElementById('starttime').value,
+                endtime: document.getElementById('endtime').value,
+                logo: document.getElementById('logo').value,
+                signature: document.getElementById('signature').value,
+                cost: parseInt(document.getElementById('cost').value),
+                ticketTemplate: document.getElementById('ticketTemplate').value,
+                certificateTemplate: document.getElementById('certificateTemplate').value,
+                bannerTemplate: document.getElementById('bannerTemplate').value
+            };
+
+            fetch('/create_event', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json().then(data => ({ status: response.status, body: data })))
+            .then(res => {
+                if (res.status === 201) {
+                    document.getElementById('message').style.color = 'green';
+                    document.getElementById('message').innerText = 'Event created successfully with ID: ' + res.body.eventid;
+                    document.getElementById('createEventForm').reset();
+                } else {
+                    document.getElementById('message').style.color = 'red';
+                    document.getElementById('message').innerText = res.body.status;
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                document.getElementById('message').innerText = 'An error occurred.';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,28 +1,29 @@
-<!-- app/templates/checkout.html -->
+<!-- app/templates/login.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Checkout Certificates - Event Management System</title>
+    <title>Login - Event Management System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fff0f5;
-            padding: 20px;
+            background-color: #eef2f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .container {
+        .login-container {
             background-color: #ffffff;
-            padding: 25px;
+            padding: 30px;
             border-radius: 8px;
-            max-width: 600px;
-            margin: auto;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h2 {
-            text-align: center;
+        .login-container h2 {
+            margin-bottom: 20px;
             color: #333333;
         }
-        input, select {
+        input {
             width: 100%;
             padding: 12px;
             margin: 8px 0 16px 0;
@@ -30,54 +31,46 @@
             border-radius: 4px;
         }
         button {
-            background-color: #f44336;
+            background-color: #007bff;
             color: white;
             padding: 12px;
             border: none;
             border-radius: 4px;
-            cursor: pointer;
             width: 100%;
+            cursor: pointer;
         }
         .message {
             margin-top: 20px;
-            text-align: center;
             color: red;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Checkout and Certificate Generation</h2>
-        <form id="checkoutForm">
-            <label for="eventid">Event ID:</label>
-            <input type="number" id="eventid" name="eventid" required>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
 
-            <label for="email">Participant Email:</label>
-            <input type="email" id="email" name="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
 
-            <label for="certificateTemplate">Certificate Template:</label>
-            <select id="certificateTemplate" name="certificateTemplate" required>
-                <option value="CertTemplate1">Certificate Template 1</option>
-                <option value="CertTemplate2">Certificate Template 2</option>
-                <!-- Add more templates as needed -->
-            </select>
-
-            <button type="submit">Generate Certificate</button>
+            <button type="submit">Login</button>
         </form>
         <div class="message" id="message"></div>
+        <p>Don't have an account? <a href="/register">Register here</a>.</p>
     </div>
 
     <script>
-        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const data = {
-                eventid: parseInt(document.getElementById('eventid').value),
-                email: document.getElementById('email').value,
-                certificateTemplate: document.getElementById('certificateTemplate').value
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
             };
 
-            fetch('/checkout', {
+            fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,10 +79,13 @@
             })
             .then(response => response.json().then(data => ({ status: response.status, body: data })))
             .then(res => {
-                if (res.status === 201) {
+                if (res.status === 200) {
                     document.getElementById('message').style.color = 'green';
                     document.getElementById('message').innerText = res.body.status;
-                    document.getElementById('checkoutForm').reset();
+                    // Redirect to home after successful login
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
                 } else {
                     document.getElementById('message').style.color = 'red';
                     document.getElementById('message').innerText = res.body.status;

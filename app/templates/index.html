@@ -8,50 +8,138 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #007BFF;
+            padding: 15px;
+            color: white;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            height: 100vh;
+        }
+        .navbar a {
+            color: white;
+            margin-left: 15px;
+            text-decoration: none;
+            font-weight: bold;
         }
         .home-container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            padding: 20px;
         }
-        .home-container h1 {
-            margin-bottom: 30px;
+        .events {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .event-card {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .event-logo {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .event-card h3 {
+            margin-top: 0;
             color: #333333;
         }
-        .nav-button {
-            display: inline-block;
-            margin: 10px;
-            padding: 15px 25px;
-            font-size: 16px;
-            color: #ffffff;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .event-card p {
+            color: #555555;
+            margin: 5px 0;
         }
-        .nav-button:hover {
-            background-color: #0056b3;
+        .event-card button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .event-card button:hover {
+            background-color: #218838;
+        }
+        .create-event-button {
+            background-color: #ffc107;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .create-event-button:hover {
+            background-color: #e0a800;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .events {
+                flex-direction: column;
+                align-items: center;
+            }
+            .event-card {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <div>
+            <h2>Event Management System</h2>
+        </div>
+        <div>
+            {% if current_user.is_authenticated %}
+                <a href="/logout">Logout</a>
+                <a href="/create_event" class="create-event-button">Create Event</a>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
+        </div>
+    </div>
+
     <div class="home-container">
-        <h1>Welcome to the Event Management System</h1>
-        <a href="/eventdetails" class="nav-button">Create Event</a>
-        <a href="/participantdetails" class="nav-button">Register Participant</a>
-        <a href="/checkout" class="nav-button">Checkout & Certificates</a>
+        <h2>Available Events</h2>
+        <div class="events">
+            {% for event in events %}
+                <div class="event-card">
+                    {% if event.logo %}
+                        <img src="{{ event.logo }}" alt="{{ event.eventname }} Logo" class="event-logo">
+                    {% else %}
+                        <img src="/static/images/default_logo.png" alt="Default Logo" class="event-logo">
+                        <!-- Alternatively, you can omit the image or use a placeholder -->
+                        <!-- <div class="event-logo-placeholder">No Logo Available</div> -->
+                    {% endif %}
+                    <h3>{{ event.eventname }}</h3>
+                    <p><strong>Organization:</strong> {{ event.orgname }}</p>
+                    <p><strong>Venue:</strong> {{ event.venue }}</p>
+                    <p><strong>Date:</strong> {{ event.startdate }} to {{ event.enddate }}</p>
+                    <button onclick="registerForEvent({{ event.id }})">Register</button>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
     <script>
-        // Optional JavaScript can be added here if needed in the future
+        function registerForEvent(eventId) {
+            window.location.href = `/register_event/${eventId}`;
+        }
     </script>
 </body>
 </html>

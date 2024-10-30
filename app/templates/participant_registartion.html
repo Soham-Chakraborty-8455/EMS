@@ -1,8 +1,9 @@
+<!-- app/templates/participant_registration.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Participant Registration</title>
+    <title>Register for {{ event.eventname }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,10 +12,17 @@
         }
         .container {
             background-color: #ffffff;
-            padding: 20px;
-            border-radius: 5px;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        input, select {
+        h2 {
+            text-align: center;
+            color: #333333;
+        }
+        input, textarea {
             width: 100%;
             padding: 12px;
             margin: 8px 0 16px 0;
@@ -22,28 +30,25 @@
             border-radius: 4px;
         }
         button {
-            background-color: #008CBA;
+            background-color: #28a745;
             color: white;
             padding: 12px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            width: 100%;
         }
         .message {
             margin-top: 20px;
+            text-align: center;
+            color: red;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Participant Registration</h2>
+        <h2>Register for "{{ event.eventname }}"</h2>
         <form id="participantForm">
-            <label for="eventid">Event ID:</label>
-            <input type="number" id="eventid" name="eventid" required>
-
-            <label for="eventname">Event Name:</label>
-            <input type="text" id="eventname" name="eventname" required>
-
             <label for="name">Your Name:</label>
             <input type="text" id="name" name="name" required>
 
@@ -66,28 +71,28 @@
             e.preventDefault();
 
             const data = {
-                eventid: parseInt(document.getElementById('eventid').value),
-                eventname: document.getElementById('eventname').value,
-                name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
+                name: document.getElementById('name').value,
                 phone: document.getElementById('phone').value,
                 address: document.getElementById('address').value
             };
 
-            fetch('/participantdetails', {
+            fetch(`/register_event/{{ event.id }}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.trigger) {
-                    document.getElementById('message').innerText = 'Registration Successful!';
+            .then(response => response.json().then(data => ({ status: response.status, body: data })))
+            .then(res => {
+                if (res.status === 201) {
+                    document.getElementById('message').style.color = 'green';
+                    document.getElementById('message').innerText = res.body.status;
                     document.getElementById('participantForm').reset();
                 } else {
-                    document.getElementById('message').innerText = 'Registration Failed.';
+                    document.getElementById('message').style.color = 'red';
+                    document.getElementById('message').innerText = res.body.status;
                 }
             })
             .catch((error) => {
