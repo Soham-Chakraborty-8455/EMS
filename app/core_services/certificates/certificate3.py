@@ -42,32 +42,17 @@ def make_certificates3(name, event, date, org, desig, n1, signurl1, logourl1):
 
         # Dynamic resizing and pasting
         def resize_and_paste(image, size, position):
-            image.thumbnail(size, Image.ANTIALIAS)
+            image.thumbnail(size, Image.LANCZOS)
             image_source.paste(image, position, image if image.mode == 'RGBA' else None)
 
         resize_and_paste(insert_image1, (450, 75), (400, 1040))
         resize_and_paste(logo1, (200, 100), (1400, 1040))
 
         # Save the certificate with a unique name
-        output_path = f'certificates/certificatesave/{name.replace(" ", "_")}_certificate.png'
+        output_path = f'./certificatesave/{name.replace(" ", "_")}_certificate.png'
         image_source.save(output_path, format='PNG')
         print(f"Certificate saved for: {name}")
 
     except IOError as e:
         print(f"Error processing certificate for {name}: {e}")
 
-
-if __name__ == "__main__":
-    names = ["Soham Chakraborty", "Kaustav Giri", "Pritha Saha", "Ujjaini Ray"]
-    event = "Metathon"
-    date = "28.12.2022"
-    org = "Presidency"
-    desig = "Principal"
-    n1 = "Mitra Basu"
-    url1 = "signs/sig1.png"
-    log1 = "logos/logo1.png"
-
-    for name in names:
-        make_certificates3(name, event, date, org, desig, n1, url1, log1)
-
-    print(len(names), "certificates done.")

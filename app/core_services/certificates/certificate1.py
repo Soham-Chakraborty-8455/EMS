@@ -2,8 +2,8 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 # Create directory if it doesn't exist
-if not os.path.exists('certificates/certificatesave'):
-    os.makedirs('certificates/certificatesave')
+if not os.path.exists('./certificatesave'):
+    os.makedirs('./certificatesave')
 
 FONT_COLOR = "#000000"
 FONT_PATH = "arial.ttf"  # Ensure the correct path to your font file
@@ -22,7 +22,7 @@ except IOError:
 
 def make_certificates1(name, gender, event, desig, n1, signurl1, logourl1):
     try:
-        image_source = Image.open('./app/core_services/certificates/cert/cert1.png')
+        image_source = Image.open('./cert/cert1.png')
         draw = ImageDraw.Draw(image_source)
 
         # Draw text on the image
@@ -35,15 +35,15 @@ def make_certificates1(name, gender, event, desig, n1, signurl1, logourl1):
 
         # Open and resize logos and signatures
         logo1 = Image.open(logourl1)
-        logo1.thumbnail((200, 100), Image.ANTIALIAS)  # Resize with aspect ratio
+        logo1.thumbnail((200, 100), Image.LANCZOS)  # Resize with aspect ratio
         image_source.paste(logo1, (1340, 1030), logo1 if logo1.mode == 'RGBA' else None)
 
         insert_image1 = Image.open(signurl1)
-        insert_image1.thumbnail((450, 75), Image.ANTIALIAS)  # Resize with aspect ratio
+        insert_image1.thumbnail((450, 75), Image.LANCZOS)  # Resize with aspect ratio
         image_source.paste(insert_image1, (453, 994), insert_image1 if insert_image1.mode == 'RGBA' else None)
 
         # Save the image
-        output_path = f'certificates/certificatesave/{name.replace(" ", "_")}_certificate.png'
+        output_path = f'./certificatesave/{name.replace(" ", "_")}_certificate.png'
         image_source.save(output_path, format='PNG')
         print(f"Certificate saved for: {name}")
 
@@ -51,16 +51,3 @@ def make_certificates1(name, gender, event, desig, n1, signurl1, logourl1):
         print(f"Error processing certificate for {name}: {e}")
 
 
-# if __name__ == "__main__":
-#     names = ["Soham Chakraborty", "Kaustav Giri", "Pritha Saha", "Ujjaini Ray"]
-#     event = "Devfest Kolkata 2023"
-#     gender = "his/her"
-#     desig = "Principal"
-#     n1 = "Mitra Basu"
-#     url1 = "signs/sig1.png"
-#     log1 = "logos/logo1.png"
-#
-#     for name in names:
-#         make_certificates1(name, gender, event, desig, n1, url1, log1)
-#
-#     print(len(names), "certificates done.")
