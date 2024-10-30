@@ -10,10 +10,9 @@ The Event Management System (EMS) is a web application designed to streamline th
 
 - **Event Creation**: Organizers can create events by entering details such as the event name, venue, date, time, organizer's name, speaker's name, and uploading volunteer names via a CSV file.
 - **Generate Banners**: Automatically create event banners with event details using Pillow for image processing.
-- **Volunteer ID Cards**: Generate and send ID cards to volunteers, delivered directly to the organizer's email.
 - **Send Certificates**: Send personalized certificates to participants after authentication using the organizer's email and phone number.
 - **Participant Registration**: Participants can register for events by providing their name, phone number, and email.
-- **Email Notifications**: Utilize Flask-Mail to send emails for confirmations, ID cards, and certificates.
+- **Email Notifications**: Utilize Flask-Mail to send emails for confirmations, and certificates.
 
 ## Technology Stack
 
@@ -21,7 +20,6 @@ The Event Management System (EMS) is a web application designed to streamline th
 - **Database**: SQLite (development), PostgreSQL (production)
 - **Image Processing**: Pillow
 - **Email**: Flask-Mail
-- **Forms**: Flask-WTF
 - **Database ORM**: SQLAlchemy
 
 ## Usage
@@ -52,13 +50,6 @@ The Event Management System (EMS) is a web application designed to streamline th
 - **Click the "View Banner" Button**
     - Next to each event in the table, you'll find a "View Banner" button. Click it to automatically generate a visual banner for the event.
     - The banner will include all the event details and can be customized for printing or online sharing.
-
-### Volunteer ID Cards
-
-- **Click the "Generate ID Card" Button**
-    - For each event, there is an option to generate ID cards for volunteers.
-    - Click the "Generate ID Card" button, and the system will create personalized ID cards for each volunteer listed in the CSV file.
-    - The ID cards will be sent directly to the organizer's email address.
 
 ### Sending Certificates
 
